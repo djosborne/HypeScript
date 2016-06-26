@@ -48,18 +48,13 @@ def removeDisallowedFilenameChars(filename):
     return ''.join(c for c in cleanedFilename if c in validFilenameChars)
 
 
-class HypeScraper:
-
-    def __init__(self):
-        pass
-
+class HypeScraper(object):
     def start(self):
         print '--------STARTING DOWNLOAD--------'
         print '\tURL : {} '.format(HYPEM_URL)
         print '\tPAGES: {}'.format(NUMBER_OF_PAGES)
 
         for i in range(1, NUMBER_OF_PAGES + 1):
-
             print 'PARSING PAGE: {}'.format(i)
 
             page_url = HYPEM_URL + '/{}'.format(i)
@@ -162,9 +157,5 @@ def edit_metadata(filename, artist, title):
     song.tag.title = unicode(title, "utf-8")
     song.tag.save()
 
-def main():
-    scraper = HypeScraper()
-    scraper.start()
-
 if __name__ == '__main__':
-        main()
+    HypeScraper().start()
