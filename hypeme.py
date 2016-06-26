@@ -31,13 +31,13 @@ import eyed3
 # This is the general area that you'd like to parse and scrape.
 # Ex. 'popular', 'latest', '<username>' or 'track/<id>'
 
-AREA_TO_SCRAPE = 'popular'
-NUMBER_OF_PAGES = 3
+AREA_TO_SCRAPE = 'OsborneThisWay'
+NUMBER_OF_PAGES = 1
 
 # DO NOT MODIFY THESE UNLES YOU KNOW WHAT YOU ARE DOING
 DEBUG = False
 HYPEM_URL = 'http://hypem.com/{}'.format(AREA_TO_SCRAPE)
-
+BASE_PATH = 'songs/'
 
 validFilenameChars = '-_.() %s%s' % (string.ascii_letters, string.digits)
 
@@ -142,7 +142,7 @@ class HypeScraper:
                 if os.path.exists(filename):
                     print('File already exists , skipping')
                 else:
-                    mp3_song_file = open(filename, 'wb')
+                    mp3_song_file = open(BASE_PATH + filename, 'wb')
                     mp3_song_file.write(download_response.read())
                     mp3_song_file.close()
                     edit_metadata(filename, artist, title)
@@ -156,7 +156,7 @@ class HypeScraper:
                 print 'generic exception: ' + str(e)
 
 def edit_metadata(filename, artist, title):
-    song = eyed3.load(filename)
+    song = eyed3.load(BASE_PATH + filename)
     song.initTag()
     song.tag.artist = unicode(artist, "utf-8")
     song.tag.title = unicode(title, "utf-8")
